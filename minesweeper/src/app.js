@@ -30,6 +30,11 @@ for (let i = 0; i < 100; i += 1) {
   item.addEventListener('click', (e) => {
     item.classList.add('field__item--open');
   });
+  item.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    item.classList.toggle('field__item--flag');
+  });
+
   items.push(item);
 }
 field.append(...items);

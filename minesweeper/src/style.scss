@@ -60,5 +60,10 @@ body {
         &:not(.field__item--open):hover {
             background-color: #c6badc;
         }
+
+        // .field__item--flag
+        &--flag {
+            background-image: url("./assets/image/flag.jpg");
+        }
     }
 }
