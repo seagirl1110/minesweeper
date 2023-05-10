@@ -8,26 +8,52 @@ body {
 }
 
 .field {
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     margin: 50px auto;
     display: flex;
     flex-wrap: wrap;
 
+    @media (min-width: 500px) and (min-height: 500px) {
+        width: 500px;
+        height: 500px;
+    }
+
+    @media (min-width: 700px) and (min-height: 700px) {
+        width: 700px;
+        height: 700px;
+    }
+
     // .field__item
     &__item {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         border: 1px solid #ccd3da;
         background-color: #ada4be;
         display: flex;
         align-items: center;
         justify-content: center;
 
+        @media (min-width: 500px) and (min-height: 500px) {
+            width: 50px;
+            height: 50px;
+        }
+
+        @media (min-width: 700px) and (min-height: 700px) {
+            width: 70px;
+            height: 70px;
+        }
+
         // .field__item--open
         &--open {
             background-color: #bbb6c0;
             color: #314c63;
+
+            // .field__item--open[value="mine"]
+            &[value="mine"] {
+                background-image: url("./assets/image/boom.jpg");
+                background-size: cover;
+            }
         }
 
         // .field__item:not(.field__item--open):hover
