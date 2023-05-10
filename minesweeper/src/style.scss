@@ -2,6 +2,37 @@
     margin: 0;
     box-sizing: border-box;
 }
+
 body {
     background-color: #cfe2fd;
+}
+
+.field {
+    width: 500px;
+    height: 500px;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+
+    // .field__item
+    &__item {
+        width: 50px;
+        height: 50px;
+        border: 1px solid #ccd3da;
+        background-color: #ada4be;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        // .field__item--open
+        &--open {
+            background-color: #bbb6c0;
+            color: #314c63;
+        }
+
+        // .field__item:not(.field__item--open):hover
+        &:not(.field__item--open):hover {
+            background-color: #c6badc;
+        }
+    }
 }
