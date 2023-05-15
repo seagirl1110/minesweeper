@@ -4,6 +4,12 @@ const body = document.body;
 const field = document.createElement('div');
 field.classList.add('field');
 body.appendChild(field);
+const result = document.createElement('div');
+result.classList.add('result');
+field.appendChild(result);
+const resultText = document.createElement('div');
+resultText.classList.add('result__text');
+result.appendChild(resultText);
 
 const mines = [];
 while (mines.length < 10) {
@@ -26,8 +32,16 @@ for (let i = 0; i < 100; i += 1) {
   }
   item.setAttribute('value', value);
   item.addEventListener('click', (e) => {
+    if (item.classList.contains('field__item--flag')) {
+      return;
+    }
     item.classList.add('field__item--open');
-    if (value !== 0 && value !== 'mine') {
+    if (value === 'mine') {
+      console.log('mine');
+      result.classList.add('result--open');
+      resultText.innerHTML = 'Game over';
+    } else if (value === 0) {
+    } else {
       item.innerHTML = value;
     }
   });
