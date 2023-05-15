@@ -37,12 +37,15 @@ for (let i = 0; i < 100; i += 1) {
     }
     item.classList.add('field__item--open');
     if (value === 'mine') {
-      console.log('mine');
       result.classList.add('result--open');
       resultText.innerHTML = 'Game over';
     } else if (value === 0) {
     } else {
       item.innerHTML = value;
+    }
+    if (checkWin()) {
+      result.classList.add('result--open');
+      resultText.innerHTML = 'You win!';
     }
   });
   item.addEventListener('contextmenu', (e) => {
@@ -53,6 +56,8 @@ for (let i = 0; i < 100; i += 1) {
   items.push(item);
 }
 field.append(...items);
+
+const cells = items.filter((cell) => cell.getAttribute('value') !== 'mine');
 
 function getCount(num) {
   let cells = [num + 10, num - 10];
@@ -67,4 +72,14 @@ function getCount(num) {
     (cell) => cell >= 0 && cell < 100 && mines.includes(cell)
   ).length;
   return count;
+}
+
+function checkWin() {
+  let win = true;
+  cells.forEach((cell) => {
+    if (!cell.classList.contains('field__item--open')) {
+      win = false;
+    }
+  });
+  return win;
 }
