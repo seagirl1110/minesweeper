@@ -7,16 +7,54 @@ body {
     background-color: #cfe2fd;
 }
 
+.game-wrapper {
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+    grid-template-rows: 50px 1fr;
+    grid-template-areas:
+        "counter btn"
+        "field field";
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 0 20px;
+}
+
+.counter {
+    grid-area: counter;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 15px;
+    margin-right: auto;
+
+    // .counter__item
+    &__item {
+        display: flex;
+        gap: 10px;
+    }
+
+    // .counter__text
+    &__text {
+        color: #5003ff;
+    }
+
+    // .counter__num
+    &__num {
+        color: #e52589;
+    }
+}
+
 .btn-reload {
-    display: block;
-    margin: 50px auto;
-    padding: 15px 20px;
+    grid-area: btn;
     font-weight: 700;
     color: #9d00d8;
     background-color: #e1dde9;
     outline: none;
     border: 2px solid #ceabd9;
+    border-radius: 10px;
     cursor: pointer;
+    padding: 0 30px;
+    margin-left: auto;
 
     // .btn-reload:hover
     &:hover {
@@ -30,12 +68,13 @@ body {
 }
 
 .field {
+    grid-area: field;
     width: 400px;
     height: 400px;
-    margin: 50px auto;
     display: flex;
     flex-wrap: wrap;
     position: relative;
+    margin: 10px auto 0;
 
     @media (min-width: 500px) and (min-height: 500px) {
         width: 500px;

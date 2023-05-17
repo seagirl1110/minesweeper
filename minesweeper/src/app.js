@@ -2,15 +2,42 @@ import './style.scss';
 
 const body = document.body;
 
+const game = document.createElement('div');
+game.classList.add('game-wrapper');
+body.appendChild(game);
+
+const counter = document.createElement('div');
+counter.classList.add('counter');
+game.appendChild(counter);
+const mineCounter = document.createElement('div');
+mineCounter.classList.add('counter__item');
+const mineCounterText = document.createElement('div');
+mineCounterText.classList.add('counter__text');
+mineCounterText.innerText = 'Mines remaining:';
+const mineCounterNum = document.createElement('div');
+mineCounterNum.classList.add('counter__num');
+mineCounterNum.innerText = 10;
+mineCounter.append(mineCounterText, mineCounterNum);
+const flagCounter = document.createElement('div');
+flagCounter.classList.add('counter__item');
+const flagCounterText = document.createElement('div');
+flagCounterText.classList.add('counter__text');
+flagCounterText.innerText = 'Used flags:';
+const flagCounterNum = document.createElement('div');
+flagCounterNum.classList.add('counter__num');
+flagCounterNum.innerText = 0;
+flagCounter.append(flagCounterText, flagCounterNum);
+counter.append(mineCounter, flagCounter);
+
 const btnReload = document.createElement('button');
 btnReload.classList.add('btn-reload');
 btnReload.innerText = 'new game';
 btnReload.addEventListener('click', startNewGame);
-body.appendChild(btnReload);
+game.appendChild(btnReload);
 
 const field = document.createElement('div');
 field.classList.add('field');
-body.appendChild(field);
+game.appendChild(field);
 
 const result = document.createElement('div');
 result.classList.add('result');
@@ -61,7 +88,17 @@ for (let i = 0; i < 100; i += 1) {
   item.addEventListener('contextmenu', (e) => {
     e.preventDefault();
     if (!item.classList.contains('field-item--open')) {
-      item.classList.toggle('field-item--flag');
+      const mineCount = Number(mineCounterNum.textContent);
+      const flagCount = Number(flagCounterNum.textContent);
+      if (item.classList.contains('field-item--flag')) {
+        item.classList.remove('field-item--flag');
+        mineCounterNum.innerText = mineCount + 1;
+        flagCounterNum.innerText = flagCount - 1;
+      } else {
+        item.classList.add('field-item--flag');
+        mineCounterNum.innerText = mineCount - 1;
+        flagCounterNum.innerText = flagCount + 1;
+      }
     }
   });
 
@@ -105,4 +142,7 @@ function startNewGame() {
   flagItems.forEach((item) => {
     item.classList.remove('field-item--flag');
   });
+  result.classList.remove('result--open');
+  mineCounterNum.innerText = 10;
+  flagCounterNum.innerText = 0;
 }
