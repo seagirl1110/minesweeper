@@ -34,6 +34,7 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
+        font-weight: 700;
 
         @media (min-width: 500px) and (min-height: 500px) {
             width: 50px;
@@ -48,12 +49,51 @@ body {
         // .field__item--open
         &--open {
             background-color: #bbb6c0;
-            color: #314c63;
 
             // .field__item--open[value="mine"]
             &[value="mine"] {
                 background-image: url("./assets/image/boom.jpg");
                 background-size: cover;
+            }
+
+            // .field__item--open[value="1"]
+            &[value="1"] {
+                color: #314c63;
+            }
+
+            // .field__item--open[value="2"]
+            &[value="2"] {
+                color: #fae000;
+            }
+
+            // .field__item--open[value="3"]
+            &[value="3"] {
+                color: #47fa00;
+            }
+
+            // .field__item--open[value="4"]
+            &[value="4"] {
+                color: #a400ff;
+            }
+
+            // .field__item--open[value="5"]
+            &[value="5"] {
+                color: #0004fa;
+            }
+
+            // .field__item--open[value="6"]
+            &[value="6"] {
+                color: #fa7900;
+            }
+
+            // .field__item--open[value="7"]
+            &[value="7"] {
+                color: #fa00d9;
+            }
+
+            // .field__item--open[value="8"]
+            &[value="8"] {
+                color: #e61717;
             }
         }
 
