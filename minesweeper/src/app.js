@@ -1,9 +1,17 @@
 import './style.scss';
 
 const body = document.body;
+
+const btnReload = document.createElement('button');
+btnReload.classList.add('btn-reload');
+btnReload.innerText = 'new game';
+btnReload.addEventListener('click', startNewGame);
+body.appendChild(btnReload);
+
 const field = document.createElement('div');
 field.classList.add('field');
 body.appendChild(field);
+
 const result = document.createElement('div');
 result.classList.add('result');
 field.appendChild(result);
@@ -22,7 +30,7 @@ while (mines.length < 10) {
 const items = [];
 for (let i = 0; i < 100; i += 1) {
   const item = document.createElement('div');
-  item.classList.add('field__item');
+  item.classList.add('field__item', 'field-item');
   item.setAttribute('num', i);
   let value = '';
   if (mines.includes(i)) {
@@ -31,26 +39,30 @@ for (let i = 0; i < 100; i += 1) {
     value = getCount(i);
   }
   item.setAttribute('value', value);
+  const itemNum = document.createElement('div');
+  itemNum.classList.add('field-item__text');
+  if (value !== 0 && value !== 'mine') {
+    itemNum.innerHTML = value;
+  }
+  item.appendChild(itemNum);
   item.addEventListener('click', (e) => {
-    if (item.classList.contains('field__item--flag')) {
+    if (item.classList.contains('field-item--flag')) {
       return;
     }
-    item.classList.add('field__item--open');
+    item.classList.add('field-item--open');
     if (value === 'mine') {
       result.classList.add('result--open');
       resultText.innerHTML = 'Game over';
-    } else if (value === 0) {
-    } else {
-      item.innerHTML = value;
-    }
-    if (checkWin()) {
+    } else if (checkWin()) {
       result.classList.add('result--open');
       resultText.innerHTML = 'You win!';
     }
   });
   item.addEventListener('contextmenu', (e) => {
     e.preventDefault();
-    item.classList.toggle('field__item--flag');
+    if (!item.classList.contains('field-item--open')) {
+      item.classList.toggle('field-item--flag');
+    }
   });
 
   items.push(item);
@@ -77,9 +89,20 @@ function getCount(num) {
 function checkWin() {
   let win = true;
   cells.forEach((cell) => {
-    if (!cell.classList.contains('field__item--open')) {
+    if (!cell.classList.contains('field-item--open')) {
       win = false;
     }
   });
   return win;
+}
+
+function startNewGame() {
+  const openItems = document.querySelectorAll('.field-item--open');
+  openItems.forEach((item) => {
+    item.classList.remove('field-item--open');
+  });
+  const flagItems = document.querySelectorAll('.field-item--flag');
+  flagItems.forEach((item) => {
+    item.classList.remove('field-item--flag');
+  });
 }

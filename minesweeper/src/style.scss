@@ -7,6 +7,28 @@ body {
     background-color: #cfe2fd;
 }
 
+.btn-reload {
+    display: block;
+    margin: 50px auto;
+    padding: 15px 20px;
+    font-weight: 700;
+    color: #9d00d8;
+    background-color: #e1dde9;
+    outline: none;
+    border: 2px solid #ceabd9;
+    cursor: pointer;
+
+    // .btn-reload:hover
+    &:hover {
+        background-color: #eee5ff;
+    }
+
+    // .btn-reload:active
+    &:active {
+        box-shadow: 1px 1px 10px #ceabd9;
+    }
+}
+
 .field {
     width: 400px;
     height: 400px;
@@ -24,89 +46,99 @@ body {
         width: 700px;
         height: 700px;
     }
+}
 
-    // .field__item
-    &__item {
-        width: 40px;
-        height: 40px;
-        border: 1px solid #ccd3da;
-        background-color: #ada4be;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
+.field-item {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccd3da;
+    background-color: #ada4be;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
 
-        @media (min-width: 500px) and (min-height: 500px) {
-            width: 50px;
-            height: 50px;
+    @media (min-width: 500px) and (min-height: 500px) {
+        width: 50px;
+        height: 50px;
+    }
+
+    @media (min-width: 700px) and (min-height: 700px) {
+        width: 70px;
+        height: 70px;
+    }
+
+    // .field-item__text
+    &__text {
+        display: none;
+    }
+
+    // .field-item--open
+    &--open {
+        background-color: #bbb6c0;
+        pointer-events: none;
+
+        //  .field-item--open .field-item__text
+        .field-item__text {
+            display: block;
         }
 
-        @media (min-width: 700px) and (min-height: 700px) {
-            width: 70px;
-            height: 70px;
+        // .field-item--open[value="mine"]
+        &[value="mine"] {
+            background-image: url("./assets/image/boom.jpg");
+            background-size: cover;
         }
 
-        // .field__item--open
-        &--open {
-            background-color: #bbb6c0;
-
-            // .field__item--open[value="mine"]
-            &[value="mine"] {
-                background-image: url("./assets/image/boom.jpg");
-                background-size: cover;
-            }
-
-            // .field__item--open[value="1"]
-            &[value="1"] {
-                color: #314c63;
-            }
-
-            // .field__item--open[value="2"]
-            &[value="2"] {
-                color: #fae000;
-            }
-
-            // .field__item--open[value="3"]
-            &[value="3"] {
-                color: #47fa00;
-            }
-
-            // .field__item--open[value="4"]
-            &[value="4"] {
-                color: #a400ff;
-            }
-
-            // .field__item--open[value="5"]
-            &[value="5"] {
-                color: #0004fa;
-            }
-
-            // .field__item--open[value="6"]
-            &[value="6"] {
-                color: #fa7900;
-            }
-
-            // .field__item--open[value="7"]
-            &[value="7"] {
-                color: #fa00d9;
-            }
-
-            // .field__item--open[value="8"]
-            &[value="8"] {
-                color: #e61717;
-            }
+        // .field-item--open[value="1"]
+        &[value="1"] {
+            color: #314c63;
         }
 
-        // .field__item:not(.field__item--open):hover
-        &:not(.field__item--open):hover {
-            background-color: #c6badc;
-            cursor: pointer;
+        // .field-item--open[value="2"]
+        &[value="2"] {
+            color: #fae000;
         }
 
-        // .field__item--flag
-        &--flag {
-            background-image: url("./assets/image/flag.jpg");
+        // .field-item--open[value="3"]
+        &[value="3"] {
+            color: #47fa00;
         }
+
+        // .field-item--open[value="4"]
+        &[value="4"] {
+            color: #a400ff;
+        }
+
+        // .field-item--open[value="5"]
+        &[value="5"] {
+            color: #0004fa;
+        }
+
+        // .field-item--open[value="6"]
+        &[value="6"] {
+            color: #fa7900;
+        }
+
+        // .field-item--open[value="7"]
+        &[value="7"] {
+            color: #fa00d9;
+        }
+
+        // .field-item--open[value="8"]
+        &[value="8"] {
+            color: #e61717;
+        }
+    }
+
+    // .field-item:not(.field-item--open):hover
+    &:not(.field__item--open):hover {
+        background-color: #c6badc;
+        cursor: pointer;
+    }
+
+    // .field-item--flag
+    &--flag {
+        background-image: url("./assets/image/flag.jpg");
     }
 }
 
