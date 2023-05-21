@@ -84,6 +84,9 @@ for (let i = 0; i < 100; i += 1) {
       result.classList.add('result--open');
       resultText.innerHTML = 'You win!';
     }
+    if (value === 0) {
+      openCell(i);
+    }
   });
   item.addEventListener('contextmenu', (e) => {
     e.preventDefault();
@@ -109,6 +112,27 @@ field.append(...items);
 const cells = items.filter((cell) => cell.getAttribute('value') !== 'mine');
 
 function getCount(num) {
+  let cells = getAdjacentCell(num);
+  const count = cells.filter((cell) => mines.includes(cell)).length;
+  return count;
+}
+
+function openCell(num) {
+  let cells = getAdjacentCell(num);
+  cells.forEach((cell) => {
+    const el = items[cell];
+    if (el.classList.contains('field-item--open')) {
+      return;
+    }
+    el.classList.add('field-item--open');
+    const value = Number(el.getAttribute('value'));
+    if (value === 0) {
+      openCell(cell);
+    }
+  });
+}
+
+function getAdjacentCell(num) {
   let cells = [num + 10, num - 10];
   if (num % 10 === 0) {
     cells = [...cells, num + 1, num + 11, num - 9];
@@ -117,10 +141,7 @@ function getCount(num) {
   } else {
     cells = [...cells, num + 1, num - 1, num + 9, num + 11, num - 9, num - 11];
   }
-  const count = cells.filter(
-    (cell) => cell >= 0 && cell < 100 && mines.includes(cell)
-  ).length;
-  return count;
+  return cells.filter((cell) => cell >= 0 && cell < 100);
 }
 
 function checkWin() {
