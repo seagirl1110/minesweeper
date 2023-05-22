@@ -82,8 +82,6 @@ for (let i = 0; i < 100; i += 1) {
 }
 field.append(...items);
 
-const cells = items.filter((cell) => cell.getAttribute('value') !== 'mine');
-
 function setMines(num) {
   while (mines.length < 10) {
     const mine = Math.floor(Math.random() * 100);
@@ -119,10 +117,12 @@ function clickItem(item, i) {
   const value = item.getAttribute('value');
   if (value === 'mine') {
     result.classList.add('result--open');
-    resultText.innerHTML = 'Game over';
+    resultText.innerHTML = 'Game over. Try again';
+    const mines = document.querySelectorAll('.field-item[value="mine"]');
+    mines.forEach(mine => mine.classList.add('field-item--open'));
   } else if (checkWin()) {
     result.classList.add('result--open');
-    resultText.innerHTML = 'You win!';
+    resultText.innerHTML = 'Hooray! You win! You found all mines';
   }
   if (Number(value) === 0) {
     openCell(i);
@@ -164,6 +164,7 @@ function getAdjacentCell(num) {
 
 function checkWin() {
   let win = true;
+  const cells = items.filter((cell) => cell.getAttribute('value') !== 'mine');
   cells.forEach((cell) => {
     if (!cell.classList.contains('field-item--open')) {
       win = false;
