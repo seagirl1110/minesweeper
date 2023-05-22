@@ -31,7 +31,7 @@ const btns = levels.map((item) => {
     field.className = `field field--${size}`;
     items = [];
     setItems();
-    field.append(...items);
+    field.append(...items, result);
   });
   return btn;
 });
@@ -225,38 +225,38 @@ function getAdjacentCell(num) {
     }
     return cells.filter((cell) => cell >= 0 && cell < 100);
   } else if (fieldSize === 15) {
-    let cells = [num + 10, num - 10];
+    let cells = [num + 15, num - 15];
     if (num % 15 === 0) {
-      cells = [...cells, num + 1, num + 11, num - 9];
+      cells = [...cells, num + 1, num + 16, num - 14];
     } else if (num % 15 === 14) {
-      cells = [...cells, num - 1, num + 9, num - 11];
+      cells = [...cells, num - 1, num + 14, num - 16];
     } else {
       cells = [
         ...cells,
         num + 1,
         num - 1,
-        num + 9,
-        num + 11,
-        num - 9,
-        num - 11,
+        num + 14,
+        num + 16,
+        num - 14,
+        num - 16,
       ];
     }
     return cells.filter((cell) => cell >= 0 && cell < 225);
   } else if (fieldSize === 25) {
-    let cells = [num + 10, num - 10];
+    let cells = [num + 25, num - 25];
     if (num % 25 === 0) {
-      cells = [...cells, num + 1, num + 11, num - 9];
+      cells = [...cells, num + 1, num + 26, num - 24];
     } else if (num % 25 === 24) {
-      cells = [...cells, num - 1, num + 9, num - 11];
+      cells = [...cells, num - 1, num + 24, num - 26];
     } else {
       cells = [
         ...cells,
         num + 1,
         num - 1,
-        num + 9,
-        num + 11,
-        num - 9,
-        num - 11,
+        num + 24,
+        num + 26,
+        num - 24,
+        num - 26,
       ];
     }
     return cells.filter((cell) => cell >= 0 && cell < 625);
