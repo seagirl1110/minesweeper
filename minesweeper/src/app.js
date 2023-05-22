@@ -30,9 +30,14 @@ const range = document.createElement('input');
 range.setAttribute('type', 'range');
 range.setAttribute('min', '10');
 range.setAttribute('max', '99');
+range.setAttribute('value', '10');
 range.classList.add('range');
 const value = document.createElement('div');
-value.innerText = range.value;
+value.innerText = `${range.value} mines`;
+range.addEventListener('input', () => {
+  value.innerText = `${range.value} mines`;
+  mineCounterNum.innerText = range.value;
+})
 rangeWrapper.appendChild(range);
 rangeWrapper.appendChild(value);
 
@@ -46,7 +51,7 @@ mineCounterText.classList.add('counter__text');
 mineCounterText.innerText = 'Mines remaining:';
 const mineCounterNum = document.createElement('div');
 mineCounterNum.classList.add('counter__num');
-mineCounterNum.innerText = 10;
+mineCounterNum.innerText = range.value;
 mineCounter.append(mineCounterText, mineCounterNum);
 const flagCounter = document.createElement('div');
 flagCounter.classList.add('counter__item');
@@ -107,13 +112,13 @@ for (let i = 0; i < 100; i += 1) {
       }
     }
   });
-
   items.push(item);
 }
 field.append(...items);
 
 function setMines(num) {
-  while (mines.length < 10) {
+  const count = range.value;
+  while (mines.length < count) {
     const mine = Math.floor(Math.random() * 100);
     if (mine !== num && !mines.includes(mine)) {
       mines.push(mine);
@@ -213,7 +218,7 @@ function startNewGame() {
     item.classList.remove('field-item--flag');
   });
   result.classList.remove('result--open');
-  mineCounterNum.innerText = 10;
+  mineCounterNum.innerText = range.value;
   flagCounterNum.innerText = 0;
   mines = [];
   items.forEach((item) => {
