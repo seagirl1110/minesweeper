@@ -18,6 +18,15 @@ body {
     max-width: 1300px;
     margin: 10px auto;
     padding: 0 20px;
+    gap: 10px;
+
+    @media (max-width: 779px) {
+        grid-template-rows: 80px 50px 1fr;
+    }
+
+    @media (max-width: 558px) {
+        grid-template-rows: 125px 50px 1fr;
+    }
 }
 
 .level {
