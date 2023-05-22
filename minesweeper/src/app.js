@@ -7,7 +7,6 @@ game.classList.add('game-wrapper');
 body.appendChild(game);
 
 let fieldSize = 10;
-console.log(fieldSize);
 const level = document.createElement('div');
 level.classList.add('level');
 const levels = [
@@ -31,7 +30,7 @@ const btns = levels.map((item) => {
     field.innerHTML = '';
     field.className = `field field--${size}`;
     items = [];
-    setItems(size);
+    setItems();
     field.append(...items);
   });
   return btn;
@@ -101,8 +100,8 @@ let mines = [];
 
 let items = [];
 
-function setItems(size) {
-  for (let i = 0; i < size ** 2; i += 1) {
+function setItems() {
+  for (let i = 0; i < fieldSize ** 2; i += 1) {
     const item = document.createElement('div');
     item.classList.add('field__item', 'field-item');
     item.setAttribute('num', i);
@@ -133,13 +132,12 @@ function setItems(size) {
     items.push(item);
   }
 }
-setItems(10);
+setItems();
 field.append(...items);
 
 function setMines(num) {
   const count = Number(range.value);
   const size = fieldSize ** 2;
-  console.log(size);
   while (mines.length < count) {
     const mine = Math.floor(Math.random() * size);
     if (mine !== num && !mines.includes(mine)) {
@@ -208,7 +206,7 @@ function openCell(num) {
 }
 
 function getAdjacentCell(num) {
-  if ((fieldSize = 10)) {
+  if (fieldSize === 10) {
     let cells = [num + 10, num - 10];
     if (num % 10 === 0) {
       cells = [...cells, num + 1, num + 11, num - 9];
@@ -226,7 +224,7 @@ function getAdjacentCell(num) {
       ];
     }
     return cells.filter((cell) => cell >= 0 && cell < 100);
-  } else if ((fieldSize = 15)) {
+  } else if (fieldSize === 15) {
     let cells = [num + 10, num - 10];
     if (num % 15 === 0) {
       cells = [...cells, num + 1, num + 11, num - 9];
@@ -244,7 +242,7 @@ function getAdjacentCell(num) {
       ];
     }
     return cells.filter((cell) => cell >= 0 && cell < 225);
-  } else if ((fieldSize = 25)) {
+  } else if (fieldSize === 25) {
     let cells = [num + 10, num - 10];
     if (num % 25 === 0) {
       cells = [...cells, num + 1, num + 11, num - 9];
