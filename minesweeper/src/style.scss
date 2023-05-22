@@ -10,13 +10,42 @@ body {
 .game-wrapper {
     display: grid;
     grid-template-columns: 8fr 4fr;
-    grid-template-rows: 50px 1fr;
+    grid-template-rows: 50px 50px 1fr;
     grid-template-areas:
+        "level range"
         "counter btn"
         "field field";
     max-width: 800px;
     margin: 10px auto;
     padding: 0 20px;
+}
+
+.level {
+    grid-area: level;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 0 15px;
+
+    // .level__btn
+    &__btn {
+        font-weight: 700;
+        color: #fefefe;
+        background-color: #9065e7;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        padding: 10px 30px;
+    }
+}
+
+.range-wrapper {
+    grid-area: range;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .counter {

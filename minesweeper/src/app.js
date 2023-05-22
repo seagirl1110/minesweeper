@@ -6,6 +6,36 @@ const game = document.createElement('div');
 game.classList.add('game-wrapper');
 body.appendChild(game);
 
+const level = document.createElement('div');
+level.classList.add('level');
+const levels = [
+  { name: 'easy', size: '10x10' },
+  { name: 'medium', size: '15x15' },
+  { name: 'hard', size: '25x25' },
+];
+const btns = levels.map((item) => {
+  const { name, size } = item;
+  const btn = document.createElement('button');
+  btn.classList.add('level__btn');
+  btn.innerText = `${name}: ${size}`;
+  return btn;
+});
+level.append(...btns);
+game.appendChild(level);
+
+const rangeWrapper = document.createElement('div');
+rangeWrapper.classList.add('range-wrapper');
+game.appendChild(rangeWrapper);
+const range = document.createElement('input');
+range.setAttribute('type', 'range');
+range.setAttribute('min', '10');
+range.setAttribute('max', '99');
+range.classList.add('range');
+const value = document.createElement('div');
+value.innerText = range.value;
+rangeWrapper.appendChild(range);
+rangeWrapper.appendChild(value);
+
 const counter = document.createElement('div');
 counter.classList.add('counter');
 game.appendChild(counter);
@@ -119,7 +149,7 @@ function clickItem(item, i) {
     result.classList.add('result--open');
     resultText.innerHTML = 'Game over. Try again';
     const mines = document.querySelectorAll('.field-item[value="mine"]');
-    mines.forEach(mine => mine.classList.add('field-item--open'));
+    mines.forEach((mine) => mine.classList.add('field-item--open'));
   } else if (checkWin()) {
     result.classList.add('result--open');
     resultText.innerHTML = 'Hooray! You win! You found all mines';
