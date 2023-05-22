@@ -15,7 +15,7 @@ body {
         "level range"
         "counter btn"
         "field field";
-    max-width: 800px;
+    max-width: 1300px;
     margin: 10px auto;
     padding: 0 20px;
 }
@@ -38,6 +38,16 @@ body {
         border-radius: 10px;
         cursor: pointer;
         padding: 10px 30px;
+
+        // .level__btn:hover
+        &:hover {
+            background-color: #a180e3;
+        }
+
+        // .level__btn--select
+        &--select {
+            background-color: #68568b;
+        }
     }
 }
 
@@ -98,27 +108,71 @@ body {
 
 .field {
     grid-area: field;
-    width: 400px;
-    height: 400px;
     display: flex;
     flex-wrap: wrap;
     position: relative;
     margin: 10px auto 0;
 
-    @media (min-width: 500px) and (min-height: 500px) {
-        width: 500px;
-        height: 500px;
+    // .field--10
+    &--10 {
+        width: 400px;
+        height: 400px;
+
+        @media (min-width: 550px) {
+            width: 500px;
+            height: 500px;
+        }
+
+        @media (min-width: 750px) {
+            width: 700px;
+            height: 700px;
+        }
     }
 
-    @media (min-width: 700px) and (min-height: 700px) {
-        width: 700px;
-        height: 700px;
+    // .field--15
+    &--15 {
+        width: 375px;
+        height: 375px;
+
+        @media (min-width: 575px) {
+            width: 525px;
+            height: 525px;
+        }
+
+        @media (min-width: 800px) {
+            width: 750px;
+            height: 750px;
+        }
+
+        @media (min-width: 950px) {
+            width: 900px;
+            height: 900px;
+        }
+    }
+
+    // .field--25
+    &--25 {
+        width: 375px;
+        height: 375px;
+
+        @media (min-width: 550px) {
+            width: 500px;
+            height: 500px;
+        }
+
+        @media (min-width: 800px) {
+            width: 750px;
+            height: 750px;
+        }
+
+        @media (min-width: 1300px) {
+            width: 1250px;
+            height: 1250px;
+        }
     }
 }
 
 .field-item {
-    width: 40px;
-    height: 40px;
     border: 1px solid #ccd3da;
     background-color: #ada4be;
     display: flex;
@@ -126,14 +180,62 @@ body {
     justify-content: center;
     font-weight: 700;
 
-    @media (min-width: 500px) and (min-height: 500px) {
-        width: 50px;
-        height: 50px;
+    // .field--10 .field-item
+    .field--10 & {
+        width: 40px;
+        height: 40px;
+
+        @media (min-width: 550px) {
+            width: 50px;
+            height: 50px;
+        }
+
+        @media (min-width: 750px) {
+            width: 70px;
+            height: 70px;
+        }
     }
 
-    @media (min-width: 700px) and (min-height: 700px) {
-        width: 70px;
-        height: 70px;
+    // .field--15 .field-item
+    .field--15 & {
+        width: 25px;
+        height: 25px;
+
+        @media (min-width: 575px) {
+            width: 35px;
+            height: 35px;
+        }
+
+        @media (min-width: 800px) {
+            width: 50px;
+            height: 50px;
+        }
+
+        @media (min-width: 950px) {
+            width: 60px;
+            height: 60px;
+        }
+    }
+
+    // .field--25 .field-item
+    .field--25 & {
+        width: 15px;
+        height: 15px;
+
+        @media (min-width: 550px) {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (min-width: 800px) {
+            width: 30px;
+            height: 30px;
+        }
+
+        @media (min-width: 1300px) {
+            width: 50px;
+            height: 50px;
+        }
     }
 
     // .field-item__text
@@ -207,6 +309,7 @@ body {
     // .field-item--flag
     &--flag {
         background-image: url("./assets/image/flag.jpg");
+        background-size: cover;
     }
 }
 

@@ -6,18 +6,34 @@ const game = document.createElement('div');
 game.classList.add('game-wrapper');
 body.appendChild(game);
 
+let fieldSize = 10;
+console.log(fieldSize);
 const level = document.createElement('div');
 level.classList.add('level');
 const levels = [
-  { name: 'easy', size: '10x10' },
-  { name: 'medium', size: '15x15' },
-  { name: 'hard', size: '25x25' },
+  { name: 'easy', size: 10 },
+  { name: 'medium', size: 15 },
+  { name: 'hard', size: 25 },
 ];
 const btns = levels.map((item) => {
   const { name, size } = item;
   const btn = document.createElement('button');
   btn.classList.add('level__btn');
-  btn.innerText = `${name}: ${size}`;
+  btn.innerText = `${name}: ${size}x${size}`;
+  btn.addEventListener('click', () => {
+    fieldSize = size;
+    startNewGame();
+    const btnSelect = document.querySelector('.level__btn--select');
+    if (btnSelect) {
+      btnSelect.classList.remove('level__btn--select');
+    }
+    btn.classList.add('level__btn--select');
+    field.innerHTML = '';
+    field.className = `field field--${size}`;
+    items = [];
+    setItems(size);
+    field.append(...items);
+  });
   return btn;
 });
 level.append(...btns);
@@ -37,7 +53,7 @@ value.innerText = `${range.value} mines`;
 range.addEventListener('input', () => {
   value.innerText = `${range.value} mines`;
   mineCounterNum.innerText = range.value;
-})
+});
 rangeWrapper.appendChild(range);
 rangeWrapper.appendChild(value);
 
@@ -71,7 +87,7 @@ btnReload.addEventListener('click', startNewGame);
 game.appendChild(btnReload);
 
 const field = document.createElement('div');
-field.classList.add('field');
+field.className = 'field field--10';
 game.appendChild(field);
 
 const result = document.createElement('div');
@@ -83,43 +99,49 @@ result.appendChild(resultText);
 
 let mines = [];
 
-const items = [];
-for (let i = 0; i < 100; i += 1) {
-  const item = document.createElement('div');
-  item.classList.add('field__item', 'field-item');
-  item.setAttribute('num', i);
-  item.addEventListener('click', (e) => {
-    const num = Number(item.getAttribute('num'));
-    if (mines.length === 0) {
-      setMines(num);
-      setValue();
-    }
-    clickItem(item, num);
-  });
-  item.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    if (!item.classList.contains('field-item--open')) {
-      const mineCount = Number(mineCounterNum.textContent);
-      const flagCount = Number(flagCounterNum.textContent);
-      if (item.classList.contains('field-item--flag')) {
-        item.classList.remove('field-item--flag');
-        mineCounterNum.innerText = mineCount + 1;
-        flagCounterNum.innerText = flagCount - 1;
-      } else {
-        item.classList.add('field-item--flag');
-        mineCounterNum.innerText = mineCount - 1;
-        flagCounterNum.innerText = flagCount + 1;
+let items = [];
+
+function setItems(size) {
+  for (let i = 0; i < size ** 2; i += 1) {
+    const item = document.createElement('div');
+    item.classList.add('field__item', 'field-item');
+    item.setAttribute('num', i);
+    item.addEventListener('click', (e) => {
+      const num = Number(item.getAttribute('num'));
+      if (mines.length === 0) {
+        setMines(num);
+        setValue();
       }
-    }
-  });
-  items.push(item);
+      clickItem(item, num);
+    });
+    item.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      if (!item.classList.contains('field-item--open')) {
+        const mineCount = Number(mineCounterNum.textContent);
+        const flagCount = Number(flagCounterNum.textContent);
+        if (item.classList.contains('field-item--flag')) {
+          item.classList.remove('field-item--flag');
+          mineCounterNum.innerText = mineCount + 1;
+          flagCounterNum.innerText = flagCount - 1;
+        } else {
+          item.classList.add('field-item--flag');
+          mineCounterNum.innerText = mineCount - 1;
+          flagCounterNum.innerText = flagCount + 1;
+        }
+      }
+    });
+    items.push(item);
+  }
 }
+setItems(10);
 field.append(...items);
 
 function setMines(num) {
-  const count = range.value;
+  const count = Number(range.value);
+  const size = fieldSize ** 2;
+  console.log(size);
   while (mines.length < count) {
-    const mine = Math.floor(Math.random() * 100);
+    const mine = Math.floor(Math.random() * size);
     if (mine !== num && !mines.includes(mine)) {
       mines.push(mine);
     }
@@ -186,15 +208,61 @@ function openCell(num) {
 }
 
 function getAdjacentCell(num) {
-  let cells = [num + 10, num - 10];
-  if (num % 10 === 0) {
-    cells = [...cells, num + 1, num + 11, num - 9];
-  } else if (num % 10 === 9) {
-    cells = [...cells, num - 1, num + 9, num - 11];
-  } else {
-    cells = [...cells, num + 1, num - 1, num + 9, num + 11, num - 9, num - 11];
+  if ((fieldSize = 10)) {
+    let cells = [num + 10, num - 10];
+    if (num % 10 === 0) {
+      cells = [...cells, num + 1, num + 11, num - 9];
+    } else if (num % 10 === 9) {
+      cells = [...cells, num - 1, num + 9, num - 11];
+    } else {
+      cells = [
+        ...cells,
+        num + 1,
+        num - 1,
+        num + 9,
+        num + 11,
+        num - 9,
+        num - 11,
+      ];
+    }
+    return cells.filter((cell) => cell >= 0 && cell < 100);
+  } else if ((fieldSize = 15)) {
+    let cells = [num + 10, num - 10];
+    if (num % 15 === 0) {
+      cells = [...cells, num + 1, num + 11, num - 9];
+    } else if (num % 15 === 14) {
+      cells = [...cells, num - 1, num + 9, num - 11];
+    } else {
+      cells = [
+        ...cells,
+        num + 1,
+        num - 1,
+        num + 9,
+        num + 11,
+        num - 9,
+        num - 11,
+      ];
+    }
+    return cells.filter((cell) => cell >= 0 && cell < 225);
+  } else if ((fieldSize = 25)) {
+    let cells = [num + 10, num - 10];
+    if (num % 25 === 0) {
+      cells = [...cells, num + 1, num + 11, num - 9];
+    } else if (num % 25 === 24) {
+      cells = [...cells, num - 1, num + 9, num - 11];
+    } else {
+      cells = [
+        ...cells,
+        num + 1,
+        num - 1,
+        num + 9,
+        num + 11,
+        num - 9,
+        num - 11,
+      ];
+    }
+    return cells.filter((cell) => cell >= 0 && cell < 625);
   }
-  return cells.filter((cell) => cell >= 0 && cell < 100);
 }
 
 function checkWin() {
